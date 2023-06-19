@@ -3,28 +3,29 @@ import todoicon from "../assets/images/todobig.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Register = () => {
-    const username = useRef()
-    const email = useRef()
-    const password = useRef()
-    const cpassword = useRef()
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const cpassword = useRef();
 
-    const navigate = useNavigate()
-    async function submit(e){
-        try {
-            e.preventDefault()
-            const {data} = await axios.post('/api/user/register',{
-                username : username.current.value,
-                email : email.current.value,
-                password : password.current.value,
-                cpassword : cpassword.current.value
-            })
-            console.log(data)
-            navigate('/')
-        } catch (error) {
-            console.log(error)
-            alert(error.response.data.msg)
-        }
+  const navigate = useNavigate();
+  async function submit(e) {
+    try {
+      e.preventDefault();
+      const { data } = await axios.post("/api/user/register", {
+        username: username.current.value,
+        email: email.current.value,
+        password: password.current.value,
+        cpassword: cpassword.current.value,
+      });
+      console.log(data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.msg) return alert(error.response.data.msg);
+      alert("internal server error try later");
     }
+  }
   return (
     <section className="h-screen">
       <div className="container h-full px-6 py-24">
@@ -40,7 +41,7 @@ const Register = () => {
               {/* <!-- Email input --> */}
               <div className="relative mb-6" data-te-input-wrapper-init>
                 <input
-                ref={email}
+                  ref={email}
                   required
                   type="email"
                   className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
@@ -58,7 +59,7 @@ const Register = () => {
               {/* <!-- Username input --> */}
               <div className="relative mb-6" data-te-input-wrapper-init>
                 <input
-                ref={username}
+                  ref={username}
                   required
                   type="text"
                   className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
@@ -76,7 +77,7 @@ const Register = () => {
               {/* <!-- Password input --> */}
               <div className="relative mb-6" data-te-input-wrapper-init>
                 <input
-                ref={password}
+                  ref={password}
                   required
                   type="password"
                   className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
@@ -94,7 +95,7 @@ const Register = () => {
               {/* <!--Confirm Password input --> */}
               <div className="relative mb-6" data-te-input-wrapper-init>
                 <input
-                ref={cpassword}
+                  ref={cpassword}
                   required
                   type="password"
                   className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"

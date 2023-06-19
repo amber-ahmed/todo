@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [todos, setTodos] = useState([]);
@@ -11,7 +12,8 @@ const Home = () => {
     desc: "",
   });
   const [reload, setReload] = useState(false);
-  const searchText = useRef()  
+  const searchText = useRef();
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchTodo = async () => {
       try {
@@ -24,7 +26,9 @@ const Home = () => {
         setTodos(data.todos);
       } catch (error) {
         console.log(error);
-        alert(error.response.data.msg);
+      if(error.response.data.msg)
+      return alert(error.response.data.msg);
+      alert('internal server error try later')
       }
     };
     fetchTodo();
@@ -51,7 +55,9 @@ const Home = () => {
       console.log(data);
     } catch (error) {
       console.log(error);
-      alert(error.response.data.msg);
+      if(error.response.data.msg)
+      return alert(error.response.data.msg);
+      alert('internal server error try later')
     }
   }
   async function deleteTask(e) {
@@ -70,66 +76,120 @@ const Home = () => {
       setDeleteModal("hidden");
     } catch (error) {
       console.log(error);
-      alert(error.response.data.msg);
+      if(error.response.data.msg)
+      return alert(error.response.data.msg);
+      alert('internal server error try later')
     }
   }
-  async function search(){
+  async function search() {
     try {
-      if(!searchText.current.value){
-        return setReload(!reload)
+      if (!searchText.current.value) {
+        return setReload(!reload);
       }
-        const {data}  = await axios.get('/api/user/search/' + searchText.current.value, {
-            headers : {
-                id : localStorage.getItem('id')
-            }
-        })
-        setTodos(data)
-        console.log(data)
+      const { data } = await axios.get(
+        "/api/user/search/" + searchText.current.value,
+        {
+          headers: {
+            id: localStorage.getItem("id"),
+          },
+        }
+      );
+      setTodos(data);
+      console.log(data);
     } catch (error) {
-        console.log(error)
-        alert(error.response.data.msg)
+      console.log(error);
+      if(error.response.data.msg)
+      return alert(error.response.data.msg);
+      alert('internal server error try later')
     }
   }
   return (
     <>
-<div className="mt-16">
-<label for="default-search" class="mb-2 mt-16 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-    <div class="relative">
-        {/* <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<div className="flex justify-end">
+      <button
+      onClick={()=>{if(window.confirm('do you really want to logout')){
+        localStorage.removeItem('id')
+        navigate('/')
+      }}}
+        type="submit"
+        className="mb-3 mt-4  mx-4 bg-[#3b5998] flex  items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+      >
+        Sign Out
+      </button>
+      </div>
+      <div className="mt-16">
+        <label
+          for="default-search"
+          class="mb-2 mt-16 text-sm font-medium text-gray-900 sr-only dark:text-white"
+        >
+          Search
+        </label>
+        <div class="relative">
+          {/* <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div> */}
-        <input onChange={search} ref={searchText} type="search" id="default-search" class="block w-4/5 mx-auto p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by name or description" required/>
-    </div>
-</div>
-   
+          <input
+            onChange={search}
+            ref={searchText}
+            type="search"
+            id="default-search"
+            class="block w-4/5 mx-auto p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search by name or description"
+            required
+          />
+        </div>
+      </div>
 
       <table class="table-auto w-full mt-8  text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xl py-32 text-gray-700 uppercase bg-blue-200 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="px-6 py-3">Name</th>
-            <th scope="col" class="px-6 py-3">Description</th>
-            <th scope="col" class="px-6 py-3">Edit</th>
-            <th scope="col" class="px-6 py-3">Delete</th>
-
+            <th scope="col" class="px-6 py-3">
+              Name
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Description
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Edit
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Delete
+            </th>
           </tr>
         </thead>
         <tbody>
           {todos.map((todo) => (
             <>
               <tr className="bg-white border-b hover:bg-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{todo.name}</td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{todo.desc}</td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
+                <td
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {todo.name}
+                </td>
+                <td
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {todo.desc}
+                </td>
+                <td
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
                   <i
                     onClick={() => {
-                        setIsAdd(false)
+                      setIsAdd(false);
                       setCurrentTask(todo);
                       setEditModal("");
                     }}
                     className="fa fa-edit font-bold  text-blue-700  text-[24px] cursor-pointer"
                   ></i>
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
                   <i
                     onClick={() => {
                       setCurrentTask(todo);
@@ -317,10 +377,10 @@ const Home = () => {
 
       <i
         onClick={() => {
-            setCurrentTask({
-                name : "",
-                desc : ""
-            })
+          setCurrentTask({
+            name: "",
+            desc: "",
+          });
           setIsAdd(true);
           setEditModal("");
         }}

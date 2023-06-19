@@ -15,10 +15,12 @@ const Login = () => {
             })
             console.log(data)
             localStorage.setItem('id',data.id)
-            navigate('/')
+            navigate('/home')
         } catch (error) {
-            console.log(error)
-            alert(error.response.data.msg)
+          console.log(error);
+          if(error.response.data.msg)
+          return alert(error.response.data.msg);
+          alert('internal server error try later')
         }
     }
   return (
