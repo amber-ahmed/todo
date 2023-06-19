@@ -1,49 +1,44 @@
-TODO APPLICATION
- is a streamlined todo application built using Elasticsearch and Node.js, offering users a powerful task management solution. With Elasticsearch's advanced search capabilities and real-time indexing, Todo enables users to effortlessly add, update, and delete tasks. The application supports efficient searching based on user IDs, task names, and descriptions, ensuring a personalized and organized task management experience.
-
-Introduction:
-Todo is designed to simplify task management, providing a user-friendly interface and leveraging Elasticsearch and Node.js for enhanced performance and functionality. The application allows users to create, update, and delete tasks with ease, while Elasticsearch's advanced search capabilities enable efficient searching based on user IDs, task names, and descriptions.
-
-Key Features:
-
-Task Creation and Management: Users can easily create and manage tasks, including details such as task names, descriptions, and completion status.
-
-Efficient Search Functionality: Todo utilizes Elasticsearch's powerful search capabilities to enable quick and precise searching based on user IDs, task names, and descriptions.
-
-Real-time Indexing: Tasks are immediately available for search and retrieval after creation or update, thanks to Elasticsearch's real-time indexing feature.
-
-Scalability and Performance: Todo leverages Elasticsearch's distributed architecture to handle large volumes of tasks efficiently, ensuring optimal performance as the number of tasks grows.
-
-User Identification: Users can associate tasks with unique user IDs, allowing for personalized task management and organization.
-
-Steps to run application
-step 1 : clone the repository by following below command
-git clone git@github.com:amber-ahmed/todo.git
-//to run client application
-step 2 : move to client folder by below command
-cd client
-step 3 : install libraries by following command
-npm i
-it will install all libraries that are presend in the package.json
-step 4 : run app by below command
-npm start
-//steps to run server
-step 5 : goto server folder by below command
-cd ../server //if you are already in client folder
-step 6 : create .env file by below command
-touch .env
-step 7 : add the following variables
-PORT = 5003
-DB_URI = <your mongodb uri string>
-REDIS_PASSWORD = <redis password>
-REDIS_PORT = 10971
-REDIS_HOST = <redis host url>
-ELASTIC_ID = <elastic client id>
-ELASTIC_USERNAME = <elastic username>
-ELASTIC_PASSWORD = <elastic password>
-//replace with your credentials
-step 7 :  install libraries by following command
-npm i
-step 8 : run server by following below command
-npm run server
-Now your server will start and your application is live, you can use it now.
+  <h1>Todo Application</h1>
+  <h2>Introduction</h2>
+  <p>The Todo Application is a streamlined task management solution built using Elasticsearch and Node.js. It offers users a powerful and efficient way to manage their tasks. With Elasticsearch's advanced search capabilities and real-time indexing, users can effortlessly add, update, and delete tasks. The application also supports efficient searching based on user IDs, task names, and descriptions, providing a personalized and organized task management experience.</p>
+  <h2>Key Features</h2>
+  <ul>
+    <li>Task Creation and Management: Users can easily create and manage tasks, including details such as task names, descriptions, and completion status.</li>
+    <li>Efficient Search Functionality: The application utilizes Elasticsearch's powerful search capabilities to enable quick and precise searching based on user IDs, task names, and descriptions.</li>
+    <li>Real-time Indexing: Tasks are immediately available for search and retrieval after creation or update, thanks to Elasticsearch's real-time indexing feature.</li>
+    <li>Scalability and Performance: The application leverages Elasticsearch's distributed architecture to handle large volumes of tasks efficiently, ensuring optimal performance as the number of tasks grows.</li>
+    <li>User Identification: Users can associate tasks with unique user IDs, allowing for personalized task management and organization.</li>
+  </ul>
+  <h2>How to Run the Application</h2>
+  <ol>
+    <li>Clone the repository:</li>
+    <code>git clone git@github.com:your-username/todo.git</code>
+    <li>Change to the client directory:</li>
+    <code>cd todo/client</code>
+    <li>Install the required dependencies:</li>
+    <code>npm install</code>
+    <li>Start the client application:</li>
+    <code>npm start</code>
+    <li>Open a new terminal and navigate to the server directory:</li>
+    <code>cd ../server</code>
+    <li>Create a .env file:</li>
+    <code>touch .env</code>
+    <li>Open the .env file and add the following variables:</li>
+    <pre>
+PORT=5003
+DB_URI=&lt;your_mongodb_uri_string&gt;
+REDIS_PASSWORD=&lt;redis_password&gt;
+REDIS_PORT=10971
+REDIS_HOST=&lt;redis_host_url&gt;
+ELASTIC_ID=&lt;elastic_client_id&gt;
+ELASTIC_USERNAME=&lt;elastic_username&gt;
+ELASTIC_PASSWORD=&lt;elastic_password&gt;
+    </pre>
+    <p>Replace &lt;your_mongodb_uri_string&gt;, &lt;redis_password&gt;, &lt;redis_host_url&gt;, &lt;elastic_client_id&gt;, &lt;elastic_username&gt;, and &lt;elastic_password&gt; with your actual credentials.</p>
+    <li>Install the required dependencies:</li>
+    <code>npm install</code>
+    <li>Start the server:</li>
+    <code>npm run server</code>
+  </ol>
+  <p>Now the server will start, and your Todo Application will be live. You can access and use it by opening a web browser and navigating to the appropriate URL.</p>
+  <p>Enjoy organizing your tasks with the Todo Application!</p>
