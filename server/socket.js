@@ -2,7 +2,7 @@ function socket(io){
     console.log('socket')
 io.on("connection",(socket)=>{
     socket.on("todo-added",(userid,msg)=>{
-        console.log(userid)
+        console.log('userid',userid)
         socket.broadcast.emit("add" + userid,msg)
     })
     socket.on("todo-deleted",(userid)=>{

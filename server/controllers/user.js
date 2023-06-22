@@ -97,6 +97,7 @@ router.get("/fetchall", async (req, res) => {
 router.post("/addnedit", async (req, res) => {
   try {
     const { name, desc } = req.body;
+    console.log(req.body)
     const { id } = req.headers;
     await client.connect();
     const result = await client.HSET(id, name, desc);
