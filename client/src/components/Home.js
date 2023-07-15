@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addTodo, deleteTodo, getAddTodo, getDeleteTodo, test } from "../utils/socket";
+import { addTodo, deleteTodo, getAddTodo, getDeleteTodo, disconnect, test, socket } from "../utils/socket";
 
 const Home = () => {
 
@@ -16,11 +16,21 @@ const Home = () => {
   const [reload, setReload] = useState(false);
   const searchText = useRef();
   const navigate = useNavigate()
-  useEffect(()=>{
+  useEffect(() => {
     // test()
-  getAddTodo(reload, setReload)
-  getDeleteTodo(reload, setReload)
-  },[])
+    // getAddTodo(reload, setReload)
+    socket.on('add' + localStorage.getItem('id'), (msg) => {
+      console.log(msg)
+      // alert(msg)
+      console.log(reload)
+      setReload(!reload)
+      // window.location.reload();
+  })
+    getDeleteTodo(reload, setReload)
+    return () => {
+      disconnect()
+    }
+  }, [])
   useEffect(() => {
     const fetchTodo = async () => {
       try {

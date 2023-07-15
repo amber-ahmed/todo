@@ -19,7 +19,7 @@ const io = new Server(server,{
     reconnection : true,
     reconnectionAttemps : Infinity,
     cors : {
-        origin : '/',
+        origin : '*',
         methods : ["GET", "POST"]
     }
 
